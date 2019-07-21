@@ -14,10 +14,10 @@ node {
       sh 'cp /var/lib/jenkins/workspace/HelloWorld/dist/hello-world.war /var/lib/jenkins/workspace/HelloWorld/'
     }
     stage('Docker_Build') {
-      sh ' sudo docker build -t mvn-app --no-cache .'
+      sh ' docker build -t mvn-app --no-cache .'
     }
     stage('Deploy') {
-      sh ' sudo docker run -d -p 8081:8081 --name mvn-app mvn-app'
+      sh 'docker run -d -p 8081:8081 --name mvn-app mvn-app'
     }
    }
   catch (err) {
