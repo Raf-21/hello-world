@@ -16,6 +16,8 @@ node {
     stage('Docker_Build') {
       sh ' sudo docker build -t mvn-app --no-cache .'
     }
+    stage concurrency: 1, name: 'approve-greeting'
+    input id: 'greeting-deploy', message: 'Proceed to Greeting?', ok: 'Deploy'
     stage('Deploy') {
       sh 'sudo docker run -d -p 8080:8080 --name mvn-app mvn-app'
     }
